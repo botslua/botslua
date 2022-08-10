@@ -994,6 +994,9 @@ end
 return function_core.run_table(luatele_body)
 end
 function luatele_function.editMessageCaption(chat_id, message_id, caption, parse_mode, reply_markup)
+if parse_mode and caption then
+caption = luatele_function.parseTextEntities(caption,parse_mode)
+end
 local luatele_body = {
 luatele = 'editMessageCaption',
 chat_id = chat_id,
@@ -1001,9 +1004,6 @@ message_id = message_id,
 reply_markup = reply_markup,
 caption = caption
 }
-if parse_mode then
-luatele_body.caption = luatele_function.parseTextEntities(caption,parse_mode)
-end
 return function_core.run_table(luatele_body)
 end
 function luatele_function.getTextEntities(text)
