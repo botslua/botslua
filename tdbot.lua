@@ -993,13 +993,18 @@ luatele_body.input_message_content.text = luatele_function.parseTextEntities(tex
 end
 return function_core.run_table(luatele_body)
 end
-function luatele_function.editMessageCaption(chat_id,message_id,caption,reply_markup)
+function luatele_function.editMessageCaption(chat_id, message_id, text, parse_mode, reply_markup)
+if text and parse_mode then
+text = luatele_function.parseTextEntities(text,parse_mode)
+else
+text = text
+end
 local luatele_body = {
 luatele = 'editMessageCaption',
 chat_id = chat_id,
 message_id = message_id,
 reply_markup = reply_markup,
-caption = caption
+caption = text
 }
 return function_core.run_table(luatele_body)
 end
